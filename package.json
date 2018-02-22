@@ -1,0 +1,19 @@
+{
+  "name": "simplestatemanager",
+  "version": "1.0.0",
+  "description": "A simple global state manager",
+  "main": "index.ts",
+  "scripts": {
+    "start": "webpack-dev-server --content-base ./dist --hot --inline --colors --port 3000",
+    "build": "webpack --config webpack.config.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^3.5.0",
+    "typescript": "^2.7.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}
