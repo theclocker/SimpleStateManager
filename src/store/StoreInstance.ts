@@ -4,13 +4,8 @@ export interface StoreProperties {
 
 interface StoreCallback {
     identifier: string;
-    func: (() => StoreProperties);
-    action?: string;
-}
-
-interface StoreActionCallback {
-    action: string;
     func: ((...args: any[]) => StoreProperties);
+    action?: string;
 }
 
 export default class StoreInstance {
@@ -19,9 +14,7 @@ export default class StoreInstance {
 
     protected callbacks: StoreCallback[] = [];
 
-    protected _actions: StoreActionCallback[] = [];
-
-    public get properties(): StoreProperties {
+    get properties(): StoreProperties {
         return JSON.parse(JSON.stringify(this._properties));
     }
 
@@ -32,24 +25,31 @@ export default class StoreInstance {
         });
     }
 
-    public addAction(name: string, callback: (value: StoreProperties) => any) {
-        this.actions.push({
-            action: name,
-            func: () => callback(this.properties)
+    public addAction(identifier: string, name: string, callback: (value: StoreProperties) => any) {
+        this.callbacks.push({
+            identifier: identifier,
+            func: () => callback(this.properties),
+            action: name
         });
     }
 
     public wipeCallbacks(identifier: string) {
-        console.log(identifier);
         this.callbacks = this.callbacks.filter(callback => {
             return callback.identifier !== identifier;
         });
-        console.log(this.callbacks);
     }
 
-    public set(key: string, value: any) {
+    public wipeAction(identifier: string, action: string) {
+        this.callbacks = this.callbacks.filter(callback => {
+            return !(callback.identifier === identifier && callback.action === action);
+        });
+    }
+
+    public set(key: string, value: any, quiet: boolean) {
         this._properties[key] = value;
-        this.notifyAll();
+        if (!quiet) {
+            this.notifyAll();
+        }
     }
 
     public get(key: string): any {
@@ -57,7 +57,7 @@ export default class StoreInstance {
     }
 
     get actions() {
-        return this._actions;
+        return this.callbacks.filter(callback => callback.action);
     }
 
     public do(action: string) {
@@ -65,7 +65,7 @@ export default class StoreInstance {
     }
 
     protected notifyActions(action: string) {
-        this.actions.map((callback: StoreActionCallback) => {
+        this.callbacks.map((callback: StoreCallback) => {
             if (callback.action === action) {
                 callback.func();
             }
@@ -74,7 +74,9 @@ export default class StoreInstance {
 
     protected notifyAll() {
         this.callbacks.map((callback: StoreCallback) => {
-            callback.func();
+            if (!callback.action) {
+                callback.func();
+            }
         });
     }
 }

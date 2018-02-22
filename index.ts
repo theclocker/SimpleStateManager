@@ -3,16 +3,12 @@ import { StoreProperties } from "./src/store/StoreInstance";
 
 let store = new StoreFactory('counter');
 store.subscribe((value: StoreProperties) => {
-    if (store.get('count') > 4) {
-        store.unsubscribe();
-    }
-    console.log(value);
-    document.querySelector('.count').innerHTML = value.count
+    document.querySelector('.count').innerHTML = value.count;
 });
 
-store.action('add', (value) => {
-    store.set('count', store.get('count') + 1);
-    console.log(value);
+store.action('add', properties => {
+    store.set('count', ++properties.count);
 });
 
+document.getElementById('add').onclick = () => store.do('add');
 document.querySelector('.count').innerHTML = store.get('count');

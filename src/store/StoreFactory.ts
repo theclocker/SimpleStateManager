@@ -12,6 +12,10 @@ export class StoreFactory {
         return this.storeInstance.actions;
     }
 
+    get properties(): StoreProperties {
+        return this.storeInstance.properties;
+    }
+
     public constructor(name: string) {
         this.identifier = Math.random().toString(36).replace('0.', '').substr(0,6);
         console.log(this.identifier);
@@ -31,8 +35,12 @@ export class StoreFactory {
         this.storeInstance.wipeCallbacks(this.identifier);
     }
 
-    public set(key: string, value: any) {
-        return this.storeInstance.set(key, value);
+    public forget(action: string) {
+        this.storeInstance.wipeAction(this.identifier, action);
+    }
+
+    public set(key: string, value: any, quiet: boolean = false) {
+        return this.storeInstance.set(key, value, quiet);
     }
 
     public get(key: string): any {
@@ -40,21 +48,16 @@ export class StoreFactory {
     }
 
     public action(name: string, callback: (value: StoreProperties) => any) {
-        this.storeInstance.addAction(name, callback);
+        this.storeInstance.addAction(this.identifier, name, callback);
     }
 
     public do(action: string) {
         this.storeInstance.do(action);
     }
 
-    public getStore(): StoreProperties {
-        return this.storeInstance.properties;
-    }
-
 }
 
 let store = new StoreFactory('counter');
-console.log(store);
 store.set('count', 0);
 store.subscribe(value => {
     if (store.get('count') < 0) {
@@ -64,5 +67,4 @@ store.subscribe(value => {
     document.querySelector('.count').innerHTML = value.count
 });
 document.querySelector('.count').innerHTML = store.get('count');
-document.getElementById('add').onclick = () => store.do('add');
-document.getElementById('subtract').onclick = () => store.set('count', store.get('count') - 1);
+document.getElementById('subtract').onclick = () => store.set('count', store.get('count') - 1, false);
