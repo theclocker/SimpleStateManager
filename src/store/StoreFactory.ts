@@ -8,9 +8,9 @@ export class StoreFactory {
 
     protected static stores: {[name: string] : StoreInstance} = {};
 
-    get actions() {
-        return this.storeInstance.actions;
-    }
+    // get actions() {
+    //     return this.storeInstance.actions;
+    // }
 
     get properties(): StoreProperties {
         return this.storeInstance.properties;
@@ -25,6 +25,10 @@ export class StoreFactory {
         }
         StoreFactory.stores[name] = new StoreInstance();
         this.storeInstance = StoreFactory.stores[name];
+    }
+
+    public static exists(name: string) {
+        return StoreFactory.stores.hasOwnProperty(name);
     }
 
     public subscribe(callback: (value: StoreProperties) => any) {
@@ -57,7 +61,7 @@ export class StoreFactory {
 
 }
 
-let store = new StoreFactory('counter');
+/*let store = new StoreFactory('counter');
 store.set('count', 0);
 store.subscribe(value => {
     if (store.get('count') < 0) {
@@ -67,4 +71,4 @@ store.subscribe(value => {
     document.querySelector('.count').innerHTML = value.count
 });
 document.querySelector('.count').innerHTML = store.get('count');
-document.getElementById('subtract').onclick = () => store.set('count', store.get('count') - 1, false);
+document.getElementById('subtract').onclick = () => store.set('count', store.get('count') - 1, false);*/

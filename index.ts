@@ -1,14 +1,13 @@
-import { StoreFactory } from './src/store/StoreFactory';
-import { StoreProperties } from "./src/store/StoreInstance";
+import { store } from './src/SimpleStoreManager';
 
-let store = new StoreFactory('counter');
-store.subscribe((value: StoreProperties) => {
-    document.querySelector('.count').innerHTML = value.count;
+const counter = store('counter');
+counter.subscribe( properties => {
+    document.querySelector('.count').innerHTML = properties.count;
 });
 
-store.action('add', properties => {
-    store.set('count', ++properties.count);
+counter.action( 'add', properties => {
+    counter.set('count', ++properties.count);
 });
 
-document.getElementById('add').onclick = () => store.do('add');
-document.querySelector('.count').innerHTML = store.get('count');
+document.getElementById('add').onclick = () => counter.do('add');
+document.querySelector('.count').innerHTML = counter.get('count');

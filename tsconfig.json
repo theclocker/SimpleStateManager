@@ -4,11 +4,9 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",
+    "declaration": true,
     "target": "es5",
-    "baseUrl": "./",
-    "paths": {
-      "@src": ["./src/"]
-    }
+    "baseUrl": "./"
   },
   "exclude": [
     "node_modules"

@@ -1,14 +1,20 @@
 {
   "name": "simplestatemanager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple global state manager",
-  "main": "index.ts",
+  "main": "dist/SimpleStoreManager.js",
+  "types" : "dist/SimpleStoreManager.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theclocker/SimpleStateManager.git"
+  },
   "scripts": {
-    "start": "webpack-dev-server --content-base ./dist --hot --inline --colors --port 3000",
-    "build": "webpack --config webpack.config.js",
+    "dev:start": "webpack-dev-server --content-base ./dist --hot --inline --colors --port 3000",
+    "dev:build": "webpack --config webpack.config.js",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jonathan Vega",
   "license": "ISC",
   "devDependencies": {
     "ts-loader": "^3.5.0",

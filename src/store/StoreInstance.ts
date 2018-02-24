@@ -2,7 +2,7 @@ export interface StoreProperties {
     [k: string]: any;
 }
 
-interface StoreCallback {
+export interface StoreCallback {
     identifier: string;
     func: ((...args: any[]) => StoreProperties);
     action?: string;
@@ -56,9 +56,9 @@ export default class StoreInstance {
         return this._properties[key];
     }
 
-    get actions() {
-        return this.callbacks.filter(callback => callback.action);
-    }
+    // get actions() {
+    //     return this.callbacks.filter(callback => callback.action);
+    // }
 
     public do(action: string) {
         this.notifyActions(action);
