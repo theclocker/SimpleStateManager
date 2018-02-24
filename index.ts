@@ -1,5 +1,5 @@
-import { store } from './src/SimpleStoreManager';
-export { store };
+import { store, StoreBox } from './src/SimpleStoreManager';
+export { store, StoreBox };
 //
 // const counter = store('counter');
 // counter.subscribe( properties => {
