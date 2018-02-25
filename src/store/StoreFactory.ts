@@ -51,24 +51,11 @@ export class StoreFactory {
         return this.storeInstance.get(key);
     }
 
-    public action(name: string, callback: (value: StoreProperties) => any) {
+    public action(name: string, callback: (value?: StoreProperties, ...args: any[]) => any) {
         this.storeInstance.addAction(this.identifier, name, callback);
     }
 
-    public do(action: string) {
-        this.storeInstance.do(action);
+    public do(action: string, ...args: any[]) {
+        this.storeInstance.do(action, ...args);
     }
-
 }
-
-/*let store = new StoreFactory('counter');
-store.set('count', 0);
-store.subscribe(value => {
-    if (store.get('count') < 0) {
-        store.set('count', 0);
-        return;
-    }
-    document.querySelector('.count').innerHTML = value.count
-});
-document.querySelector('.count').innerHTML = store.get('count');
-document.getElementById('subtract').onclick = () => store.set('count', store.get('count') - 1, false);*/

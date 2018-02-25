@@ -18,17 +18,17 @@ export default class StoreInstance {
         return JSON.parse(JSON.stringify(this._properties));
     }
 
-    public subscribe(identifier: string, callback: (value: StoreProperties) => any) {
+    public subscribe(identifier: string, callback: (value: StoreProperties, ...args: any[]) => any) {
         this.callbacks.push({
             identifier: identifier,
-            func: ()=> callback(this.properties),
+            func: callback,
         });
     }
 
-    public addAction(identifier: string, name: string, callback: (value: StoreProperties) => any) {
+    public addAction(identifier: string, name: string, callback: (value: StoreProperties, ...args: any[]) => any) {
         this.callbacks.push({
             identifier: identifier,
-            func: () => callback(this.properties),
+            func: callback,
             action: name
         });
     }
@@ -56,18 +56,15 @@ export default class StoreInstance {
         return this._properties[key];
     }
 
-    // get actions() {
-    //     return this.callbacks.filter(callback => callback.action);
-    // }
-
-    public do(action: string) {
-        this.notifyActions(action);
+    public do(action: string, ...args: any[]) {
+        this.notifyActions(action, ...args);
     }
 
-    protected notifyActions(action: string) {
+    protected notifyActions(action: string, ...args: any[]) {
         this.callbacks.map((callback: StoreCallback) => {
             if (callback.action === action) {
-                callback.func();
+                callback.func(this.properties, ...args);
+                return;
             }
         });
     }
@@ -75,7 +72,7 @@ export default class StoreInstance {
     protected notifyAll() {
         this.callbacks.map((callback: StoreCallback) => {
             if (!callback.action) {
-                callback.func();
+                callback.func(this.properties);
             }
         });
     }

@@ -41,7 +41,7 @@ function click() {
 }
 ```
 ```typescript
-// File 127
+// File #127
 const modal = store('modal');
 modal.subscribe(properties => {
     if (properties.visible) {
@@ -54,5 +54,5 @@ modal.subscribe(properties => {
 
 ## Planned features:
 - [ ] Simple hijacking of React state
-- [ ] Actions with arguments
+- [x] Actions with arguments
 - [ ] Call arguments like an object property instead of calling it as a string
