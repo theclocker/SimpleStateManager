@@ -6,17 +6,17 @@ A "global" state manager is basically a store based event-emitter, where code
 subscribes to either a store or an action defined on the store, a simple example goes as follows:
 
 ```typescript
-const store = new StoreFactory('counter'); // Where counter is the global store's name
-store.set('count', 1);
-store.subscribe(properties => {
+const counter = store('counter'); // Where counter is the global store's name
+counter.set('count', 1);
+counter.subscribe(properties => {
     console.log(++properties.count); //2
 });
 
-store.action('add', properties => {
-    store.set('count', ++properties.count);
+counter.action('add', properties => {
+    counter.set('count', ++properties.count);
 });
 
-store.do('add');
+counter.do('add');
 ```
 
 In the example above we begin by creating (or fetching) a new `store`, in case a store called
@@ -30,20 +30,20 @@ state, and subscriber:
 
 ```typescript
 // File #1
-const store = new StoreFactory('modal');
-store.set('visible', false);
+const modal = store('modal');
+modal.set('visible', false);
 ```
 ```typescript
 // File #67
-const store = new StoreFactory('modal');
+const modal = store('modal');
 function click() {
-    store.set('visible', true);
+    modal.set('visible', true);
 }
 ```
 ```typescript
 // File 127
-const store = new StoreFactory('modal');
-store.subscribe(properties => {
+const modal = store('modal');
+modal.subscribe(properties => {
     if (properties.visible) {
         makeVisible();
     } else {
@@ -51,3 +51,8 @@ store.subscribe(properties => {
     }
 });
 ```
+
+## Planned features:
+- [ ] Simple hijacking of React state
+- [ ] Actions with arguments
+- [ ] Call arguments like an object property instead of calling it as a string
