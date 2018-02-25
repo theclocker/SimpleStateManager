@@ -15,7 +15,7 @@ export default class StoreInstance {
     protected callbacks: StoreCallback[] = [];
 
     get properties(): StoreProperties {
-        return JSON.parse(JSON.stringify(this._properties));
+        return Object.assign({}, this._properties);
     }
 
     public subscribe(identifier: string, callback: (value: StoreProperties, ...args: any[]) => any) {
