@@ -55,4 +55,6 @@ modal.subscribe(properties => {
 ## Planned features:
 - [x] Simple attachment to React state
 - [x] Actions with arguments
+- [ ] Unsubscribe from store instance
+- [ ] Unsubscribe an attachment
 - [ ] Some more slamming features
