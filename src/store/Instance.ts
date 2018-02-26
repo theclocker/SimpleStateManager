@@ -56,6 +56,13 @@ export default class Instance {
         return this._properties[key];
     }
 
+    public setBulk(properties: {[k: string]: any}, quiet: boolean) {
+        this._properties = Object.assign(this._properties, properties);
+        if (!quiet) {
+            this.notifyAll();
+        }
+    }
+
     public do(action: string, ...args: any[]) {
         this.notifyActions(action, ...args);
     }

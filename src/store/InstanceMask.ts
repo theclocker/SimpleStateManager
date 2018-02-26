@@ -27,7 +27,11 @@ export abstract class InstanceMask {
     }
 
     public set(key: string, value: any, quiet: boolean = false) {
-        return this.storeInstance.set(key, value, quiet);
+        this.storeInstance.set(key, value, quiet);
+    }
+
+    public bulk(properties: {[k: string]: any}, quiet: boolean = false) {
+        this.storeInstance.setBulk(properties, quiet);
     }
 
     public get(key: string): any {

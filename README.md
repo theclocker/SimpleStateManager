@@ -9,14 +9,15 @@ subscribes to either a store or an action defined on the store, a simple example
 const counter = store('counter'); // Where counter is the global store's name
 counter.set('count', 1);
 counter.subscribe(properties => {
-    console.log(++properties.count); //2
+    console.log(properties.count); //6
 });
 
-counter.action('add', properties => {
-    counter.set('count', ++properties.count);
+// after the mandatory properties argument you can add as many arguments as needed
+counter.action('add', (properties, incrementation) => {
+    counter.set('count', properties.count + incrementation);
 });
 
-counter.do('add');
+counter.do('add', 5);
 ```
 
 In the example above we begin by creating (or fetching) a new `store`, in case a store called
@@ -55,6 +56,7 @@ modal.subscribe(properties => {
 ## Planned features:
 - [x] Simple attachment to React state
 - [x] Actions with arguments
+- [x] Set bulk with an object
 - [ ] Unsubscribe from store instance
 - [ ] Unsubscribe an attachment
 - [ ] Some more slamming features
