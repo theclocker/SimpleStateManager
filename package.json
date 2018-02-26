@@ -1,9 +1,9 @@
 {
   "name": "simplestatemanager",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A simple global state manager",
   "main": "dist/SimpleStoreManager.js",
-  "types" : "dist/SimpleStoreManager.d.ts",
+  "types": "dist/SimpleStoreManager.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/theclocker/SimpleStateManager.git"
