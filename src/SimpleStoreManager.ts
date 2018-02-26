@@ -1,12 +1,12 @@
-import { StoreFactory } from './store/StoreFactory';
+import { Factory } from './store/Factory';
 
 export namespace StoreBox {
-    export const storeFactories: {[store: string]: StoreFactory} = {};
+    export const storeFactories: {[store: string]: Factory} = {};
 }
 
-export function store(name: string): StoreFactory {
+export function store(name: string): Factory {
     if (!StoreBox.storeFactories.hasOwnProperty(name)) {
-        StoreBox.storeFactories[name] = new StoreFactory(name);
+        StoreBox.storeFactories[name] = new Factory(name);
     }
     return StoreBox.storeFactories[name];
 }

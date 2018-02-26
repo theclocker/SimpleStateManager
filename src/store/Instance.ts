@@ -1,31 +1,31 @@
-export interface StoreProperties {
+export interface Properties {
     [k: string]: any;
 }
 
 export interface StoreCallback {
     identifier: string;
-    func: ((...args: any[]) => StoreProperties);
+    func: ((...args: any[]) => Properties);
     action?: string;
 }
 
-export default class StoreInstance {
+export default class Instance {
 
-    private _properties: StoreProperties = {};
+    private _properties: Properties = {};
 
     protected callbacks: StoreCallback[] = [];
 
-    get properties(): StoreProperties {
+    get properties(): Properties {
         return Object.assign({}, this._properties);
     }
 
-    public subscribe(identifier: string, callback: (value: StoreProperties, ...args: any[]) => any) {
+    public subscribe(identifier: string, callback: (value: Properties, ...args: any[]) => any) {
         this.callbacks.push({
             identifier: identifier,
             func: callback,
         });
     }
 
-    public addAction(identifier: string, name: string, callback: (value: StoreProperties, ...args: any[]) => any) {
+    public addAction(identifier: string, name: string, callback: (value: Properties, ...args: any[]) => any) {
         this.callbacks.push({
             identifier: identifier,
             func: callback,

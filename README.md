@@ -53,6 +53,6 @@ modal.subscribe(properties => {
 ```
 
 ## Planned features:
-- [ ] Simple hijacking of React state
+- [x] Simple attachment to React state
 - [x] Actions with arguments
-- [ ] Call arguments like an object property instead of calling it as a string
+- [ ] Some more slamming features

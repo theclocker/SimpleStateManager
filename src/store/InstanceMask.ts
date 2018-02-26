@@ -1,20 +1,20 @@
-import StoreInstance, {StoreProperties} from "./StoreInstance";
+import Instance, {Properties} from "./Instance";
 
-export abstract class StoreInstanceMask {
+export abstract class InstanceMask {
 
-    private _storeInstance: StoreInstance;
+    private _storeInstance: Instance;
 
     protected identifier: string;
 
-    protected set storeInstance(instance: StoreInstance) {
+    protected set storeInstance(instance: Instance) {
         this._storeInstance = instance;
     }
 
-    protected get storeInstance(): StoreInstance {
+    protected get storeInstance(): Instance {
         return this._storeInstance;
     }
 
-    public subscribe(callback: (value: StoreProperties) => any) {
+    public subscribe(callback: (value: Properties) => any) {
         return this.storeInstance.subscribe(this.identifier, callback);
     }
 
@@ -34,7 +34,7 @@ export abstract class StoreInstanceMask {
         return this.storeInstance.get(key);
     }
 
-    public action(name: string, callback: (value?: StoreProperties, ...args: any[]) => any) {
+    public action(name: string, callback: (value?: Properties, ...args: any[]) => any) {
         this.storeInstance.addAction(this.identifier, name, callback);
     }
 
