@@ -1,13 +1,6 @@
-import { Factory } from './store/Factory';
+import { SingletonFactory } from './store/SingletonFactory';
+import { InstanceMask } from "./store/InstanceMask";
 
-/*export namespace StoreBox {
-    export const storeFactories: {[store: string]: Factory} = {};
-}*/
-
-export function store(name: string): Factory {
-    /*if (!StoreBox.storeFactories.hasOwnProperty(name)) {
-        StoreBox.storeFactories[name] = new Factory(name);
-    }
-    return StoreBox.storeFactories[name];*/
-    return new Factory(name);
+export function store(name: string): InstanceMask {
+    return SingletonFactory.makeOrGet(name);
 }

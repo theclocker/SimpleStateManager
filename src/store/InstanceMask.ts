@@ -1,10 +1,41 @@
 import Instance, {Properties} from "./Instance";
+import {Attachers} from "./Attachers";
 
-export abstract class InstanceMask {
+export interface StateAttachments {
+    react: (setState: (...args: any[]) => any, propertiesToAttach: {[localStateKey: string]: string}) => any
+}
+
+export class InstanceMask {
 
     private _storeInstance: Instance;
 
     protected identifier: string;
+
+    constructor(storeInstance: Instance) {
+        this.generateIdentifier();
+        this.storeInstance = storeInstance;
+    }
+
+    public generateIdentifier() {
+        this.identifier = Math.random().toString(36).replace('0.', '').substr(0,6);
+    }
+
+    get attach(): StateAttachments {
+        return {
+            react: this.react.bind(this)
+        };
+    }
+
+    private react(setState: (...args: any[]) => any, propertiesToAttach: {[localStateKey: string]: string}) {
+        Attachers.React(setState, propertiesToAttach, this.properties);
+        this.subscribe((properties) => {
+            Attachers.React(setState, propertiesToAttach, properties);
+        })
+    }
+
+    get properties(): Properties {
+        return this.storeInstance.properties;
+    }
 
     protected set storeInstance(instance: Instance) {
         this._storeInstance = instance;
