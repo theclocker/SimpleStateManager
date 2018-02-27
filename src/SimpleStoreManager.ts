@@ -4,3 +4,5 @@ import { InstanceMask } from "./store/InstanceMask";
 export function store(name: string): InstanceMask {
     return SingletonFactory.makeOrGet(name);
 }
+
+export { InstanceMask };
