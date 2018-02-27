@@ -1,6 +1,6 @@
 {
   "name": "simplestatemanager",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "A simple global state manager",
   "main": "dist/SimpleStoreManager.js",
   "types": "dist/SimpleStoreManager.d.ts",
