@@ -35,7 +35,7 @@ export default class Instance {
 
     public wipeCallbacks(identifier: string) {
         this.callbacks = this.callbacks.filter(callback => {
-            return !(callback.identifier === identifier && callback.action === null);
+            return !(callback.identifier === identifier);
         });
     }
 

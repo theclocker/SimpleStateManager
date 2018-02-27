@@ -32,6 +32,7 @@ export class Factory extends InstanceMask {
     }
 
     private react(setState: (...args: any[]) => any, propertiesToAttach: {[localStateKey: string]: string}) {
+        Attachers.React(setState, propertiesToAttach, this.properties);
         this.subscribe((properties) => {
             Attachers.React(setState, propertiesToAttach, properties);
         })
