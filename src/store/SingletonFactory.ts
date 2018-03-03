@@ -3,18 +3,18 @@ import {InstanceMask} from "./InstanceMask";
 
 export class SingletonFactory<T> {
 
-    protected static stores: {[name: string] : InstanceMask} = {};
+    protected static stores: {[name: string] : InstanceMask<any>} = {};
 
-    public static makeOrGet(name: string): InstanceMask {
+    public static makeOrGet<T>(name: string): InstanceMask<T> {
         if (SingletonFactory.stores.hasOwnProperty(name)) {
             const instance = SingletonFactory.stores[name];
-            const copy = new (instance.constructor as { new (): InstanceMask })();
+            const copy = new (instance.constructor as { new (): InstanceMask<T> })();
             Object.assign(copy, instance);
             copy.generateIdentifier();
             return copy;
         }
-        const instance = new Instance();
-        SingletonFactory.stores[name] = new InstanceMask(instance);
+        const instance = new Instance<T>();
+        SingletonFactory.stores[name] = new InstanceMask<T>(instance);
         return SingletonFactory.stores[name];
     }
 

@@ -2,17 +2,17 @@ export interface Properties {
     [k: string]: any;
 }
 
-export interface StoreCallback {
+export interface StoreCallback<T> {
     identifier: string;
     func: ((...args: any[]) => Properties);
-    action?: string | number;
+    action?: string | T;
 }
 
 export default class Instance<T> {
 
     private _properties: Properties = {};
 
-    protected callbacks: StoreCallback[] = [];
+    protected callbacks: StoreCallback<T>[] = [];
 
     get properties(): Properties {
         return Object.assign({}, this._properties);
@@ -25,7 +25,7 @@ export default class Instance<T> {
         });
     }
 
-    public addAction(identifier: string, name: string | number, callback: (value: Properties, ...args: any[]) => any) {
+    public addAction(identifier: string, name: string | T, callback: (value: Properties, ...args: any[]) => any) {
         this.callbacks.push({
             identifier: identifier,
             func: callback,
@@ -63,12 +63,12 @@ export default class Instance<T> {
         }
     }
 
-    public do(action: string | number | T[keyof T], ...args: any[]): void {
+    public do(action: string | T, ...args: any[]): void {
         this.notifyActions(action, ...args);
     }
 
-    protected notifyActions(action: string | number | T[keyof T], ...args: any[]): void {
-        this.callbacks.map((callback: StoreCallback) => {
+    protected notifyActions(action: string | T, ...args: any[]): void {
+        this.callbacks.map((callback: StoreCallback<T>) => {
             if (callback.action === action) {
                 callback.func(this.properties, ...args);
                 return;
@@ -77,8 +77,8 @@ export default class Instance<T> {
     }
 
     protected notifyAll() {
-        this.callbacks.map((callback: StoreCallback) => {
-            if (!callback.action) {
+        this.callbacks.map((callback: StoreCallback<T>) => {
+            if (callback.action === undefined) {
                 callback.func(this.properties);
             }
         });

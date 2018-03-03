@@ -69,12 +69,11 @@ export class InstanceMask<T> {
         return this.storeInstance.get(key);
     }
 
-    public action(name: string | number, callback: (value?: Properties, ...args: any[]) => any) {
+    public action(name: string | T, callback: (value?: Properties, ...args: any[]) => any) {
         this.storeInstance.addAction(this.identifier, name, callback);
     }
 
-    public do(action: T[keyof T], ...args: any[]): void;
-    public do(action: string | number | T[keyof T], ...args: any[]): void {
+    public do(action: string | T, ...args: any[]): void {
         this.storeInstance.do(action, ...args);
     }
 }
