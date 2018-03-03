@@ -57,6 +57,7 @@ modal.subscribe(properties => {
 - [x] Simple attachment to React state
 - [x] Actions with arguments
 - [x] Set bulk with an object
-- [ ] Unsubscribe from store instance
-- [ ] Unsubscribe an attachment
+- [x] Unsubscribe from store instance
+- [x] Unsubscribe an attachment
+- [ ] ?
 - [ ] Some more slamming features

@@ -5,7 +5,7 @@ export interface Properties {
 export interface StoreCallback {
     identifier: string;
     func: ((...args: any[]) => Properties);
-    action?: string;
+    action?: string | number;
 }
 
 export default class Instance {
@@ -25,7 +25,7 @@ export default class Instance {
         });
     }
 
-    public addAction(identifier: string, name: string, callback: (value: Properties, ...args: any[]) => any) {
+    public addAction(identifier: string, name: string | number, callback: (value: Properties, ...args: any[]) => any) {
         this.callbacks.push({
             identifier: identifier,
             func: callback,
