@@ -1,6 +1,6 @@
 import { store } from './src/SimpleStoreManager';
 export { store };
-
+/*
 export enum Actions {
     Add
 }
@@ -28,4 +28,4 @@ document.getElementById('subtract').onclick = () => counter.set('count', counter
 document.getElementById('add').onclick = () => counter.do(Actions.Add);
 document.getElementById('unsubscribe').onclick = () => counter2.unsubscribe();
 
-document.querySelector('.count').innerHTML = counter.get('count');
+document.querySelector('.count').innerHTML = counter.get('count');*/
