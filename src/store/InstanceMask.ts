@@ -73,7 +73,7 @@ export class InstanceMask {
         this.storeInstance.addAction(this.identifier, name, callback);
     }
 
-    public do(action: string, ...args: any[]) {
+    public do(action: string | number, ...args: any[]) {
         this.storeInstance.do(action, ...args);
     }
 }

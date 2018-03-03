@@ -63,11 +63,11 @@ export default class Instance {
         }
     }
 
-    public do(action: string, ...args: any[]) {
+    public do(action: string | number, ...args: any[]) {
         this.notifyActions(action, ...args);
     }
 
-    protected notifyActions(action: string, ...args: any[]) {
+    protected notifyActions(action: string | number, ...args: any[]) {
         this.callbacks.map((callback: StoreCallback) => {
             if (callback.action === action) {
                 callback.func(this.properties, ...args);
