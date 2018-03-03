@@ -8,7 +8,7 @@ export interface StoreCallback {
     action?: string | number;
 }
 
-export default class Instance {
+export default class Instance<T> {
 
     private _properties: Properties = {};
 
@@ -63,11 +63,11 @@ export default class Instance {
         }
     }
 
-    public do(action: string | number, ...args: any[]) {
+    public do(action: string | number | T[keyof T], ...args: any[]): void {
         this.notifyActions(action, ...args);
     }
 
-    protected notifyActions(action: string | number, ...args: any[]) {
+    protected notifyActions(action: string | number | T[keyof T], ...args: any[]): void {
         this.callbacks.map((callback: StoreCallback) => {
             if (callback.action === action) {
                 callback.func(this.properties, ...args);

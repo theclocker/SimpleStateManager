@@ -5,13 +5,13 @@ export interface StateAttachments {
     react: (setState: (...args: any[]) => any, propertiesToAttach: {[localStateKey: string]: string}) => any
 }
 
-export class InstanceMask {
+export class InstanceMask<T> {
 
-    private _storeInstance: Instance;
+    private _storeInstance: Instance<T>;
 
     protected identifier: string;
 
-    constructor(storeInstance: Instance) {
+    constructor(storeInstance: Instance<T>) {
         this.generateIdentifier();
         this.storeInstance = storeInstance;
     }
@@ -37,11 +37,11 @@ export class InstanceMask {
         return this.storeInstance.properties;
     }
 
-    protected set storeInstance(instance: Instance) {
+    protected set storeInstance(instance: Instance<T>) {
         this._storeInstance = instance;
     }
 
-    protected get storeInstance(): Instance {
+    protected get storeInstance(): Instance<T> {
         return this._storeInstance;
     }
 
@@ -73,7 +73,8 @@ export class InstanceMask {
         this.storeInstance.addAction(this.identifier, name, callback);
     }
 
-    public do(action: string | number, ...args: any[]) {
+    public do(action: T[keyof T], ...args: any[]): void;
+    public do(action: string | number | T[keyof T], ...args: any[]): void {
         this.storeInstance.do(action, ...args);
     }
 }

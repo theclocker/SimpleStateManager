@@ -1,7 +1,7 @@
 import Instance from "./Instance";
 import {InstanceMask} from "./InstanceMask";
 
-export class SingletonFactory {
+export class SingletonFactory<T> {
 
     protected static stores: {[name: string] : InstanceMask} = {};
 
