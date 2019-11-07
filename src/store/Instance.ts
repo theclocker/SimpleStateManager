@@ -12,7 +12,7 @@ export default class Instance<T> {
 
     private _properties: Properties = {};
 
-    protected callbacks: StoreCallback<T>[] = [];
+    protected callbacks: Array<StoreCallback<T>> = [];
 
     get properties(): Properties {
         return Object.assign({}, this._properties);

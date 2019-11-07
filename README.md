@@ -53,6 +53,36 @@ modal.subscribe(properties => {
 });
 ```
 
+### React binding
+```javascript
+import { Component } from 'react';
+
+export default class Counter extends Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0
+        };
+        this.counterStore = store('counter');
+    }
+
+    componentDidMount() {
+        this.counterStore.attach.react(this.setState.bind(this), {
+            count: 'count' // Will attach the local count state to the global
+        });
+    }
+    
+    componentWillUnmount() {
+        this.counterStore.unsubscribe();
+    }
+
+    render() {
+        return this.state.count;
+    }
+}
+```
+
 ## Planned features:
 - [x] Simple attachment to React state
 - [x] Actions with arguments

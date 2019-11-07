@@ -1,10 +1,17 @@
-import Instance, {Properties} from "./Instance";
-import {Attachers} from "./Attachers";
+import Instance, { Properties } from "./Instance";
+import { Attachers } from "./Attachers";
 
+/**
+ * State attachments interface
+ * TODO: Merge with Attachers.ts (?)
+ */
 export interface StateAttachments {
     react: (setState: (...args: any[]) => any, propertiesToAttach: {[localStateKey: string]: string}) => any
 }
 
+/**
+ * A simpler entry into stores, makes them easier to use
+ */
 export class InstanceMask<T> {
 
     private _storeInstance: Instance<T>;
@@ -37,14 +44,6 @@ export class InstanceMask<T> {
         return this.storeInstance.properties;
     }
 
-    protected set storeInstance(instance: Instance<T>) {
-        this._storeInstance = instance;
-    }
-
-    protected get storeInstance(): Instance<T> {
-        return this._storeInstance;
-    }
-
     public subscribe(callback: (value: Properties) => any) {
         return this.storeInstance.subscribe(this.identifier, callback);
     }
@@ -75,5 +74,13 @@ export class InstanceMask<T> {
 
     public do(action: string | T, ...args: any[]): void {
         this.storeInstance.do(action, ...args);
+    }
+
+    protected set storeInstance(instance: Instance<T>) {
+        this._storeInstance = instance;
+    }
+
+    protected get storeInstance(): Instance<T> {
+        return this._storeInstance;
     }
 }
